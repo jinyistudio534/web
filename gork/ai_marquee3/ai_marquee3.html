@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="ai_marquee3.css">
+    <style>
+        #msgDiv {
+            width: 100%;
+            height: 50px;
+            overflow: hidden;
+            position: relative;
+            white-space: nowrap;
+            background: #f0f0f0; /* 背景色方便調試 */
+        }
+    </style>
+</head>
+<body>
+    <div id="msgDiv"></div>
+
+    <script src="ai_marquee3.js"></script>
+    <script>
+        const marquee = new MarqueeManager('msgDiv', { 
+            moveSpeed: 1, // 移動速度設為 1 秒
+            onButtonClick: (id, button) => {
+                console.log(`訊息 ID ${id} 的按鈕 '${button}' 被按下`);
+                // 可在此處添加自定義邏輯
+            }
+        });
+    
+        // 新增測試訊息，使用 dictionary 傳入，並記錄 id
+        const id1 = marquee.addMessage({ id: 'msg1', text: '😜第一則訊息', seconds: 3 }); // 無按鈕
+        const id2 = marquee.addMessage({ id: 'msg2', text: '😜第二則訊息比較長需要更多時間', seconds: 1 }); // 無按鈕
+        const id3 = marquee.addMessage({ id: 'msg3', text: '😜第三則訊息也很長需要調整間隔', button: 'Enter' }); // Enter 按鈕
+        const id4 = marquee.addMessage({ id: 'msg4', text: '😜第四則訊息', button: 'YesNo' }); // Yes 和 No 按鈕
+        const id5 = marquee.addMessage({ id: 'msg5', text: '😜第五則訊息', button: 'YesNoCan' }); // Yes、No 和 Cancel 按鈕
+    
+        // 測試功能，使用 id 操作
+        setTimeout(() => marquee.updateMessage('msg1', { text: '😜第一則訊息已修改', seconds: 4 }), 10000);
+        setTimeout(() => marquee.removeMessage('msg2'), 15000); // 使用 id 移除第二筆
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92611e5f6e41673f',t:'MTc0MjkzNDEyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

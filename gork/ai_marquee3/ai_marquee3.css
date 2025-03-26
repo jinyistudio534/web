@@ -1,0 +1,80 @@
+#msgDiv {
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    background: #f0f0f0; /* 背景色方便調試 */
+}
+
+.marquee {
+    position: absolute;
+    font-size: 36px;
+    display: inline-block;
+    padding-bottom: 10px; /* 訊息間距 */
+    width: 100%; /* 占滿容器寬度 */
+    margin-left: 8px; /* 靠左，間距 8px */
+    text-align: left; /* 文字靠左 */
+    transform: translateY(100%); /* 初始位置在底部 */
+    display: flex; /* 使用 flex 布局 */
+    justify-content: flex-start; /* 從左開始排列 */
+    align-items: center; /* 垂直居中 */
+}
+
+.skip-button {
+    margin-right: 5px; /* 右邊距 5px */
+    margin-left: auto; /* 推到右邊 */
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.skip-button:hover {
+    background-color: #0056b3;
+}
+
+.yes-no-buttons {
+    display: flex;
+    gap: 3px; /* Yes 和 No 按鈕間隙 3px */
+    margin-left: auto; /* 推到右邊 */
+    margin-right: 5px; /* 與右邊框間距 5px */
+}
+
+.yes-button, .no-button {
+    padding: 5px 10px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.yes-button {
+    background-color: #28a745; /* 綠色表示 Yes */
+}
+
+.yes-button:hover {
+    background-color: #218838;
+}
+
+.no-button {
+    background-color: #dc3545; /* 紅色表示 No */
+}
+
+.no-button:hover {
+    background-color: #c82333;
+}
+
+/* 從底部進入到上框內側 */
+@keyframes marqueeMoveIn {
+    0% { transform: translateY(100%); } /* 從底部開始 */
+    100% { transform: translateY(0); } /* 到上框內側 */
+}
+
+/* 從上框內側移出 */
+@keyframes marqueeMoveOut {
+    0% { transform: translateY(0); } /* 從上框內側開始 */
+    100% { transform: translateY(-100%); } /* 移出框外 */
+}
