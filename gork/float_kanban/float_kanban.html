@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Float Kanban Component</title>
+    <link rel="stylesheet" href="float_kanban.css">
+</head>
+<body>
+    <div id="kanban-container"></div>
+    <!-- 畫面內的一些範例內容，包括按鈕下方 -->
+    <div style="padding: 20px;">
+        <h1>範例內容</h1>
+        <p>這是一些測試文字，用來展示 overlay 效果。</p>
+        <button>測試按鈕</button>
+        <!-- 在按鈕下方添加更多內容 -->
+        <div style="margin-top: 20px;">
+            <p>這裡是按鈕下方的內容，測試透明效果：</p>
+            <ul>
+                <li>項目 A</li>
+                <li>項目 B</li>
+                <li>項目 C</li>
+            </ul>
+            <p>更多的文字內容，確保按鈕位置有東西可以重疊。</p>
+            <img src="https://placehold.co/150x150" alt="測試圖片" style="margin-top: 10px;">
+        </div>
+    </div>
+    <script src="float_kanban.js"></script>
+    <script>
+        // 初始化 float_kanban 元件，直接傳入容器 ID 字串
+        float_kanban('kanban-container', 'left',400);
+    </script>
+</body>
+</html>

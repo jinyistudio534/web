@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* 允許滾動查看內容 */
+}
+
+.float-kanban-button {
+    position: fixed;
+    background-color: rgba(128, 128, 128, 0.5); /* 與面板相同的半透明灰色 */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+/* 水平線（top 和 bottom） */
+.float-kanban-button.horizontal::before,
+.float-kanban-button.horizontal::after {
+    content: '';
+    width: 40px;
+    height: 4px; /* 從 5px 減少到 4px */
+    background-color: white;
+    margin: 3px 0; /* 間距保持 3px */
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* 邊框增加立體感 */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), -1px -1px 2px rgba(255, 255, 255, 0.3); /* bevel 效果 */
+}
+
+/* 垂直線（left 和 right） */
+.float-kanban-button.vertical {
+    flex-direction: row;
+}
+.float-kanban-button.vertical::before,
+.float-kanban-button.vertical::after {
+    content: '';
+    width: 4px; /* 從 5px 減少到 4px */
+    height: 40px;
+    background-color: white;
+    margin: 0 3px; /* 間距保持 3px */
+    display: block;
+    border: 1px solid rgba(255, 255, 255, 0.8); /* 邊框增加立體感 */
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), -1px -1px 2px rgba(255, 255, 255, 0.3); /* bevel 效果 */
+}
+
+.float-kanban-panel {
+    position: fixed;
+    background-color: rgba(128, 128, 128, 0.5);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: auto; /* 允許面板內內容滾動 */
+}
+
+/* 範例內容樣式 */
+.float-kanban-panel-content {
+    padding: 20px;
+    color: white;
+    font-family: Arial, sans-serif;
+}
