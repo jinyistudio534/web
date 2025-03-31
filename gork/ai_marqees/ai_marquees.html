@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="ai_marquees.css">
+    <style>
+        body {
+            margin: 0; /* 移除預設邊距 */
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景內容 -->
+    <div id="content">
+        <h1>這是背景標題</h1>
+        <p>這是一些背景文字內容，展示跑馬燈 overlay 在其他內容上的效果。</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <img src="https://via.placeholder.com/300x200" alt="示例圖片" style="margin-top: 20px;">
+        <p>更多示例文字，跑馬燈應該會覆蓋在這些內容上方。</p>
+    </div>
+
+    <!-- 跑馬燈容器 -->
+    <div id="msgDiv"></div>
+
+    <script src="ai_marquees.js"></script>
+    <script>
+        const marquee = new MarqueeManager('msgDiv', { 
+            moveSpeed: 1,
+            fontSize: 90,
+            lineHeight: 1.2
+        });
+
+        const id1 = marquee.addMessage({ id: 'msg1', text: '第一則訊息', color: 'black' });
+        const id2 = marquee.addMessage({ id: 'msg2', text: '第二則訊息比較長', color: 'red' });
+        const id3 = marquee.addMessage({ id: 'msg3', text: '第三則訊息也很長', color: 'blue' });
+        const id4 = marquee.addMessage({ id: 'msg4', text: '第四則訊息' });
+        const id5 = marquee.addMessage({ id: 'msg5', text: '第五則訊息' });
+        const id6 = marquee.addMessage({ id: 'msg6', text: '第六則訊息' });
+        const id7 = marquee.addMessage({ id: 'msg7', text: '第七則訊息' });
+        const id8 = marquee.addMessage({ id: 'msg8', text: '第八則訊息' });
+        const id9 = marquee.addMessage({ id: 'msg9', text: '第九則訊息' });
+        const id10 = marquee.addMessage({ id: 'msg10', text: '第十則訊息' });
+        const id11 = marquee.addMessage({ id: 'msg11', text: '第十一則訊息' });
+
+        setTimeout(() => marquee.updateMessage('msg1', { text: '第一則訊息已修改', color: 'green' }), 10000);
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92933ab0280405af',t:'MTc0MzQ1OTU3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('script');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
