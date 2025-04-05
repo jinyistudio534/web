@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Pad Component</title>
+    <link rel="stylesheet" href="ai-js-numpad.css">
+</head>
+<body>
+    <button onclick="document.querySelector('number-pad').show('123')">Show Numpad</button>
+    <number-pad id="numpad"></number-pad>
+    <script src="ai-js-numpad.js"></script>
+    <script>
+        document.querySelector('number-pad').addEventListener('numpad-action', (e) => {
+            const { action, value } = e.detail;
+            if (action === 'enter') {
+                console.log('Confirmed value:', value);
+            } else if (action === 'esc') {
+                console.log('Input cancelled');
+            }
+        });
+    </script>
+</body>
+</html>
