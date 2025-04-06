@@ -1,78 +1,116 @@
 class AIChineseWriting extends HTMLElement {
     constructor() {
-      super();
-      this.attachShadow({ mode: 'open' });
+        super();
+        this.attachShadow({ mode: 'open' });
     }
-  
+
     connectedCallback() {
-      this.setupComponent();
-      this.mutationObserver(); // 啟用觀察器
+        this.render();
     }
-  
-    setupComponent() {
-      // 動態創建樣式
-      const style = document.createElement('style');
-      style.textContent = `
-        .writing-container {
-          display: flex;
-          flex-direction: row-reverse;
-          height: 100%;
-          width: 100%;
-          overflow: hidden;
-        }
-        chinese-writing {
-          writing-mode: vertical-rl;
-          text-orientation: upright;
-          white-space: nowrap;
-          margin-left: 10px;
-          display: inline-block;
-          position: relative;
-        }
-      `;
-      this.shadowRoot.appendChild(style);
-  
-      // 創建容器
-      const container = document.createElement('div');
-      container.className = 'writing-container';
-      this.shadowRoot.appendChild(container);
-  
-      // 處理子元素
-      this.renderLines(container);
+
+    static get observedAttributes() {
+        return ['line-spacing'];
     }
-  
-    renderLines(container) {
-      // 清空現有內容
-      container.innerHTML = '';
-  
-      // 獲取所有 <chinese-writing> 子元素
-      const lines = this.querySelectorAll('chinese-writing');
-      
-      lines.forEach(line => {
-        const lineElement = document.createElement('chinese-writing');
-        const text = line.textContent.trim();
-        const color = line.getAttribute('color') || 'black'; // 預設黑色
-        const size = line.getAttribute('size') || '100';     // 預設 100px
-        const spacing = line.getAttribute('spacing') || '0'; // 預設 0px
-  
-        lineElement.textContent = text;
-        lineElement.style.color = color;
-        lineElement.style.fontSize = `${size}px`;
-        lineElement.style.top = `${spacing}px`; // 設定與頂部的間隔
-        container.appendChild(lineElement);
-      });
+
+    attributeChangedCallback() {
+        this.render();
     }
-  
-    // 監聽子元素變化
-    mutationObserver() {
-      const observer = new MutationObserver(() => {
-        this.renderLines(this.shadowRoot.querySelector('.writing-container'));
-      });
-      observer.observe(this, { childList: true, subtree: true, attributes: true });
+
+    render() {
+        const lineSpacing = parseInt(this.getAttribute('line-spacing')) || 15;
+        const styleSheet = document.createElement('style');
+        const container = document.createElement('div');
+
+        styleSheet.textContent = `
+            .container {
+                height: 100%;
+                width: 100%;
+                position: relative; /* 作為絕對定位的基準 */
+            }
+            .chinese-line {
+                writing-mode: vertical-rl;
+                height: 100%;
+                min-height: 400px;
+                display: inline-block; /* 根據內容展開寬度 */
+                text-align: center;
+                padding: 5px;
+                box-sizing: border-box;
+                position: absolute; /* 使用絕對定位控制位置 */
+                top: 0;
+            }
+            .text-content {
+                display: block;
+                width: 100%;
+                white-space: nowrap;
+                position: absolute;
+                top: 0; /* 預設從頂部開始 */
+                left: 0;
+                right: 0;
+            }
+        `;
+
+        container.className = 'container';
+
+        const chineseWritings = this.querySelectorAll('chinese-writing');
+        let rightOffset = 0; // 從右邊開始計算偏移
+
+        chineseWritings.forEach((writing, index) => {
+            const lineDiv = document.createElement('div');
+            lineDiv.className = 'chinese-line';
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'text-content';
+
+            const color = writing.getAttribute('color') || 'black';
+            const size = parseInt(writing.getAttribute('size')) || 100;
+            const spacing = writing.getAttribute('spacing') || '0';
+
+            lineDiv.style.color = color;
+            textDiv.style.fontSize = `${size}px`;
+
+            // 重置樣式
+            textDiv.style.top = '';
+            textDiv.style.bottom = '';
+            textDiv.style.transform = '';
+
+            // 處理 spacing
+            const spacingValue = parseInt(spacing, 10);
+            if (spacing === 'center') {
+                textDiv.style.top = '50%';
+                textDiv.style.transform = 'translateY(-50%)';
+                console.log(`Line ${index + 1}: Applied top: 50%, transform: translateY(-50%)`);
+            } else if (spacing === 'end') {
+                textDiv.style.top = 'auto';
+                textDiv.style.bottom = '0px';
+                console.log(`Line ${index + 1}: Applied bottom: 0px`);
+            } else if (!isNaN(spacingValue) && spacingValue >= 0) {
+                textDiv.style.top = `${spacingValue}px`;
+                console.log(`Line ${index + 1}: Applied top: ${spacingValue}px`);
+            } else {
+                textDiv.style.top = '0px';
+                console.log(`Line ${index + 1}: Applied default top: 0px`);
+            }
+
+            textDiv.textContent = writing.textContent.trim();
+            lineDiv.appendChild(textDiv);
+            container.appendChild(lineDiv);
+
+            // 計算並設置水平位置
+            lineDiv.style.right = `${rightOffset}px`;
+            rightOffset += size + lineSpacing; // 根據字體大小和行距累加偏移
+        });
+
+        this.shadowRoot.innerHTML = '';
+        this.shadowRoot.appendChild(styleSheet);
+        this.shadowRoot.appendChild(container);
     }
-  }
-  
-  // 定義主組件
-  customElements.define('ai-chinese-writing', AIChineseWriting);
-  
-  // 定義子元素
-  customElements.define('chinese-writing', class extends HTMLElement {});
+}
+
+class ChineseWriting extends HTMLElement {
+    constructor() {
+        super();
+    }
+}
+
+customElements.define('ai-chinese-writing', AIChineseWriting);
+customElements.define('chinese-writing', ChineseWriting);

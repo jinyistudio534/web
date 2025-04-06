@@ -1,8 +1,9 @@
 ai-chinese-writing {
-    display: block;
-    height: 600px; /* 預設高度，可自行調整 */
-    width: 100%;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    position: relative; /* 確保子元素的 top 屬性有效 */
-  }
+  display: block;
+  height: 100%;
+  width: 100%; /* 確保元件佔滿父容器寬度 */
+}
+
+chinese-writing {
+  display: none; /* 隱藏原始標籤內容 */
+}

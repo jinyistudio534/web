@@ -2,65 +2,25 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chinese Writing 測試</title>
+    <title>AI Chinese Writing Demo</title>
     <link rel="stylesheet" href="ai-chinese-writing.css">
     <style>
         body {
-            margin: 20px;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h2 {
-            margin-bottom: 10px;
-        }
-        .controls {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border-radius: 5px;
-        }
-        .controls label {
-            margin-right: 10px;
-            margin-bottom: 10px;
-            display: inline-block;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>AI Chinese Writing - 測試範例</h2>
-        <ai-chinese-writing id="chinese-writing">
-            <chinese-writing color="red" size="120" spacing="0">默然回首</chinese-writing>
-            <chinese-writing color="blue" size="100" spacing="20">那人卻在</chinese-writing>
-            <chinese-writing color="green" size="80" spacing="40">燈火闌珊處</chinese-writing>
-        </ai-chinese-writing>
-
-        <div class="controls">
-            <h3>動態添加一行</h3>
-            <label>文字: <input type="text" id="text-input" value="新的一行"></label><br>
-            <label>顏色: <input type="color" id="color-input" value="#800080"></label><br>
-            <label>字型大小: <input type="number" id="size-input" value="90" min="50" max="200">px</label><br>
-            <label>間距: <input type="number" id="spacing-input" value="60" min="0" max="200">px</label><br>
-            <button onclick="addLine()">添加</button>
-        </div>
-    </div>
+    <ai-chinese-writing line-spacing="30">
+        <chinese-writing color="red" size="100" spacing="end">默然回首</chinese-writing>
+        <chinese-writing color="blue" size="50" spacing="end">往事如煙</chinese-writing>
+        <chinese-writing color="green" size="120" spacing="end">時光荏苒</chinese-writing>
+    </ai-chinese-writing>
 
     <script src="ai-chinese-writing.js"></script>
-    <script>
-        function addLine() {
-            const writing = document.getElementById('chinese-writing');
-            const newLine = document.createElement('chinese-writing');
-            newLine.setAttribute('color', document.getElementById('color-input').value);
-            newLine.setAttribute('size', document.getElementById('size-input').value);
-            newLine.setAttribute('spacing', document.getElementById('spacing-input').value);
-            newLine.textContent = document.getElementById('text-input').value;
-            writing.appendChild(newLine);
-        }
-    </script>
 </body>
 </html>
