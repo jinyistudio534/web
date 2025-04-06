@@ -1,0 +1,8 @@
+ai-chinese-writing {
+    display: block;
+    height: 600px; /* 預設高度，可自行調整 */
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    position: relative; /* 確保子元素的 top 屬性有效 */
+  }
