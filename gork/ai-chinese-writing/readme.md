@@ -1,157 +1,120 @@
+### 使用說明：AI Chinese Writing Demo
 
+#### 1. 功能概述
 
-### `ai-chinese-writing` Web Component 使用說明
+這個工具是一個基於 Web Components 的自定義元件，允許您在網頁上以垂直書寫模式（從右到左）顯示中文文字。您可以通過設置屬性來調整文字的顏色、大小和垂直位置，並通過父元件屬性控制行距。
 
-#### 功能概述
+#### 2. 文件結構
 
-`ai-chinese-writing` 是一個自訂的 Web Component，用於將多行中文文字轉為從右到左的垂直顯示。每行文字使用 `<chinese-writing>` 標籤封裝，並支援自訂文字顏色 (`color`)、字型大小 (`size`) 和第一個字與畫面頂部的間隔 (`spacing`)。文字從右到左排列，符合傳統中文直書格式。
+- **HTML 文件**：定義頁面結構並包含自定義元件 `<ai-chinese-writing>` 和 `<chinese-writing>`。
+- **CSS 文件**（`ai-chinese-writing.css`）：用於設置元件的基礎樣式。
+- **JavaScript 文件**（`ai-chinese-writing.js`）：定義自定義元件的邏輯和渲染行為。
 
-#### 主要特性
+#### 3. 如何使用
 
-- **文字轉換**：將多行文字垂直顯示，從右到左排列。
-- **子元素封裝**：每行文字使用 `<chinese-writing>` 標籤定義。
-- **可自訂屬性**：
-  - `color`：文字顏色，預設 black
-  - `size`：字型大小，預設 100px
-  - `spacing`：第一個字與畫面頂部的間隔，預設 0px
-- **動態支援**：支援通過 JavaScript 動態添加或修改行。
+以下是逐步使用說明：
 
-#### 檔案需求
+##### (1) 引入必要文件
 
-只需三個檔案：
+確保您的 HTML 文件中正確引入了 CSS 和 JavaScript 文件：
 
-1. `ai-chinese-writing.js`（包含組件邏輯和內嵌樣式）
-2. `ai-chinese-writing.css`（定義外部容器樣式）
-3. 您的 HTML 檔案（例如提供的範例）
+```html
+<link rel="stylesheet" href="ai-chinese-writing.css">
+<script src="ai-chinese-writing.js"></script>
+```
 
-#### 安裝步驟
+##### (2) 在 HTML 中使用自定義元件
 
-1. **準備檔案**：
+在 `<body>` 標籤內添加 `<ai-chinese-writing>` 作為父容器，並在其中嵌套多個 `<chinese-writing>` 標籤來顯示文字。例如：
+
+```html
+<ai-chinese-writing line-spacing="30">
+    <chinese-writing color="red" size="100" spacing="end">默然回首</chinese-writing>
+    <chinese-writing color="blue" size="50" spacing="end">往事如煙</chinese-writing>
+    <chinese-writing color="green" size="120" spacing="end">時光荏苒</chinese-writing>
+</ai-chinese-writing>
+```
+
+##### (3) 可配置的屬性
+
+- **`<ai-chinese-writing>` 的屬性**：
   
-  - 將 `ai-chinese-writing.js` 和 `ai-chinese-writing.css` 放入您的專案目錄。
-  - 創建或使用您的 HTML 檔案（例如前述範例）。
-2. **引入組件**：
+  - `line-spacing`：設置每行文字之間的水平間距（單位：像素）。預設值為 15。例如：`line-spacing="30"` 表示行距為 30px。
+- **`<chinese-writing>` 的屬性**：
   
-  - 在 HTML 中引入 CSS 和 JS 檔案：
-    
-    ```html
+  - `color`：設置文字顏色，支持 CSS 顏色值（如 `"red"`、`"blue"`、`"#FF0000"`）。預設值為 `"black"`。
+  - `size`：設置文字大小（單位：像素）。預設值為 100。例如：`size="50"` 表示字體大小為 50px。
+  - `spacing`：控制文字在垂直方向上的位置，支持以下值：
+    - `"center"`：文字居中顯示。
+    - `"end"`：文字靠底部對齊。
+    - 數字值（如 `"20"`）：從頂部開始的偏移量（單位：像素）。
+    - 預設值：`"0"`（從頂部開始）。
+
+##### (4) 文字內容
+
+將需要顯示的中文文字直接寫在 `<chinese-writing>` 標籤內，例如：
+
+```html
+<chinese-writing color="red" size="100" spacing="end">默然回首</chinese-writing>
+```
+
+這裡的文字「默然回首」將以紅色、100px 大小並靠底部顯示。
+
+#### 4. 顯示效果
+
+- 文字將以垂直書寫模式（從右到左）排列。
+- 每段文字從頁面右側開始，根據 `size` 和 `line-spacing` 的值依次向左偏移。
+- 高度至少為 400px（由 CSS 設置的 `min-height`），並根據父容器高度自適應。
+
+#### 5. 示例
+
+以下是一個完整的示例：
+
+```html
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Chinese Writing Demo</title>
     <link rel="stylesheet" href="ai-chinese-writing.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <ai-chinese-writing line-spacing="30">
+        <chinese-writing color="red" size="100" spacing="end">默然回首</chinese-writing>
+        <chinese-writing color="blue" size="50" spacing="center">往事如煙</chinese-writing>
+        <chinese-writing color="green" size="120" spacing="20">時光荏苒</chinese-writing>
+    </ai-chinese-writing>
     <script src="ai-chinese-writing.js"></script>
-    ```
-    
-3. **添加組件**：
-  
-  - 在 HTML 中使用 `<ai-chinese-writing>` 標籤，並內嵌 `<chinese-writing>` 子元素。
-
-#### 使用方式
-
-##### 1. 基本用法（靜態設置）
-
-在 HTML 中使用 `<ai-chinese-writing>` 包裹多個 `<chinese-writing>` 標籤，並為每行指定屬性：
-
-```html
-<ai-chinese-writing>
-    <chinese-writing color="red" size="120" spacing="0">默然回首</chinese-writing>
-    <chinese-writing color="blue" size="100" spacing="20">那人卻在</chinese-writing>
-    <chinese-writing color="green" size="80" spacing="40">燈火闌珊處</chinese-writing>
-</ai-chinese-writing>
+</body>
+</html>
 ```
 
-- 未指定屬性時，將使用預設值（顏色: black, 大小: 100px, 間距: 0px）。
+**效果**：
 
-##### 2. 動態控制（通過 JavaScript）
+- 「默然回首」：紅色，100px，靠底部。
+- 「往事如煙」：藍色，50px，居中。
+- 「時光荏苒」：綠色，120px，距離頂部 20px。
 
-使用 JavaScript 動態添加或修改 `<chinese-writing>` 元素：
+#### 6. 注意事項
 
-```html
-<ai-chinese-writing id="chinese-writing"></ai-chinese-writing>
-<script src="ai-chinese-writing.js"></script>
-<script>
-    const writing = document.getElementById('chinese-writing');
-    const newLine = document.createElement('chinese-writing');
-    newLine.setAttribute('color', 'purple');
-    newLine.setAttribute('size', '90');
-    newLine.setAttribute('spacing', '60');
-    newLine.textContent = '新的一行';
-    writing.appendChild(newLine);
-</script>
-```
+- **瀏覽器兼容性**：確保使用支持 Web Components 的現代瀏覽器（如 Chrome、Firefox、Edge）。
+- **間距調整**：如果 `line-spacing` 或 `size` 設置過大，可能導致文字超出容器範圍，建議根據實際需求調整。
+- **樣式衝突**：內置樣式使用 Shadow DOM 封裝，不會與外部樣式衝突，但需確保父容器有足夠寬度和高度。
 
-- 添加新行後，組件會自動重新渲染。
+#### 7. 自定義擴展
 
-##### 3. 範例 HTML（動態控制面板）
+- 若需修改樣式，可調整 `ai-chinese-writing.js` 中的 `styleSheet.textContent`。
+- 若需添加新功能（如動畫效果），可在 `render` 方法中擴展邏輯。
 
-使用提供的範例 HTML，提供互動式控制介面：
+---
 
-```html
-<ai-chinese-writing id="chinese-writing">
-    <chinese-writing color="red" size="120" spacing="0">默然回首</chinese-writing>
-    <chinese-writing color="blue" size="100" spacing="20">那人卻在</chinese-writing>
-    <chinese-writing color="green" size="80" spacing="40">燈火闌珊處</chinese-writing>
-</ai-chinese-writing>
-<div class="controls">
-    <h3>動態添加一行</h3>
-    <label>文字: <input type="text" id="text-input" value="新的一行"></label><br>
-    <label>顏色: <input type="color" id="color-input" value="#800080"></label><br>
-    <label>字型大小: <input type="number" id="size-input" value="90" min="50" max="200">px</label><br>
-    <label>間距: <input type="number" id="spacing-input" value="60" min="0" max="200">px</label><br>
-    <button onclick="addLine()">添加</button>
-</div>
-<script src="ai-chinese-writing.js"></script>
-<script>
-    function addLine() {
-        const writing = document.getElementById('chinese-writing');
-        const newLine = document.createElement('chinese-writing');
-        newLine.setAttribute('color', document.getElementById('color-input').value);
-        newLine.setAttribute('size', document.getElementById('size-input').value);
-        newLine.setAttribute('spacing', document.getElementById('spacing-input').value);
-        newLine.textContent = document.getElementById('text-input').value;
-        writing.appendChild(newLine);
-    }
-</script>
-```
-
-- 此範例展示初始三行文字，並允許通過控制面板動態添加新行。
-
-#### 可設定的屬性（在 `<chinese-writing>` 上）
-
-| 屬性名稱 | 說明  | 預設值 | 範例值 |
-| --- | --- | --- | --- |
-| `color` | 文字顏色 | "black" | "red" 或 "#ff0000" |
-| `size` | 文字大小(px) | "100" | "120" |
-| `spacing` | 與頂部間隔(px) | "0" | "40" |
-
-#### 注意事項
-
-1. **高度設置**：
-  
-  - `<ai-chinese-writing>` 的高度在 CSS 中預設為 600px，根據文字行數、大小和間距可能需要調整。
-  - 若間距過大，可能超出容器範圍，需適當增加高度。
-2. **瀏覽器支援**：
-  
-  - 需要支援 Web Components、`writing-mode: vertical-rl` 和 `text-orientation: upright` 的現代瀏覽器（如 Chrome、Firefox、Edge 最新版本）。
-3. **樣式調整**：
-  
-  - 內嵌樣式在 `ai-chinese-writing.js` 中，外部容器樣式在 `ai-chinese-writing.css` 中，可根據需求修改。
-4. **動態更新**：
-  
-  - 組件使用 `MutationObserver` 監聽子元素變化，確保添加或修改 `<chinese-writing>` 時自動更新。
-
-#### 範例專案結構
-
-```
-your-project/
-├── ai-chinese-writing.js  # 組件邏輯和內嵌樣式
-├── ai-chinese-writing.css # 外部容器樣式
-└── index.html            # 您的 HTML 檔案
-```
-
-#### 測試與運行
-
-1. 將 `ai-chinese-writing.js`、`ai-chinese-writing.css` 和 HTML 檔案放入同一目錄。
-2. 使用本地伺服器（如 `Live Server` 或 `python -m http.server`）開啟 HTML 檔案，避免 CORS 問題。
-3. 在瀏覽器中檢查：
-  - 初始文字是否正確從右到左垂直顯示。
-  - 動態添加功能是否正常運作（使用控制面板測試）。
-
-
+希望這份使用說明對您有幫助！如果有其他問題或需要進一步協助，請隨時告訴我。
